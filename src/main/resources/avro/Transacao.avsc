@@ -1,0 +1,12 @@
+{
+ "type": "record",
+ "namespace":  "br.com.egois.schemaregistry.avro",
+ "name": "Transacao",
+ "version": "1",
+ "fields": [
+   { "name": "key", "type": "string", "doc": "Chave"},
+   { "name": "nome", "type": "string", "doc": "Nome" },
+   { "name": "documento", "type": "string", "doc": "Documento" },
+   { "name": "situacao", "type": "boolean", "default": false, "doc": "Situacao" }
+ ]
+}
