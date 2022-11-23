@@ -20,3 +20,7 @@ mvn generate-sources
 ```bash
 docker-compose up
 ```
+
+**Referências**
+https://docs.confluent.io/platform/current/schema-registry/index.html#sr-overview
+https://avro.apache.org/docs/1.11.1/
