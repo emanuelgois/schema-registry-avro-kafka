@@ -12,15 +12,15 @@ server:
         http-only: true
 
 app:
-  topic: transacao-topic
+  topic: transacao
 
 kafka:
   bootstrapServers: 127.0.0.1:9092
   acksConfig: all
   retriesConfig: 10
   schemaRegistryUrl: "http://127.0.0.1:8081"
-#  consumer:
-#    group-id: grupo-transacao-avro
-#    auto-offset-reset: earliest
-#    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#    value-deserializer: org.apache.kafka.common.serialization.KafkaAvroDeserializer
+  consumer:
+    group-id: grupo-transacao-avro
+    auto-offset-reset: earliest
+    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value-deserializer: org.apache.kafka.common.serialization.ValueSerializer

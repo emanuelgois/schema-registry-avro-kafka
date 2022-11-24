@@ -1,26 +1,24 @@
 package br.com.egois.schemaregistry.service;
 
-import br.com.egois.schemaregistry.avro.Transacao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
 
 
 @Slf4j
-//@Service
+@Service
 public class Consumer {
 
-   /* @KafkaListener(groupId = "grupo-transacao-avro",  topics = {"${app.topic}"})
-    void consumerTransacao(final Message<Transacao> message) {
+    @KafkaListener(groupId = "grupo-transacao-avro",  topics = {"transacao-avro"})
+    void consumerTransacao(final String  message) {
         log.info("Mensagem recebida:");
-        log.info("Topic: {}", message.getHeaders().get("kafka_receivedTopic"));
-        log.info("payload: {}", message.getPayload());
+        //log.info("Topic: {}", message.getSchema());
+        log.info("payload: {}", message);
         log.info("");
         log.info("-----------------------------------------------------");
         log.info("");
 
-    }*/
+    }
 
     /*@KafkaListener(groupId = "grupo-transacao-avro",  topics = {"${app.topic}"})
     public void consumerTramsacao(SpecificRecordBase transacao){

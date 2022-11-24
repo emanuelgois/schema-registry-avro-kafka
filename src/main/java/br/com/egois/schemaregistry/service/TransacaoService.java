@@ -2,7 +2,6 @@ package br.com.egois.schemaregistry.service;
 
 
 import br.com.egois.schemaregistry.avro.Transacao;
-
 import br.com.egois.schemaregistry.config.MessagingPort;
 import br.com.egois.schemaregistry.dto.TransacaoDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,6 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,13 +19,15 @@ public class TransacaoService implements MessagingPort<Transacao> {
 	@Qualifier("transacaoProducer")
 	private KafkaProducer<String, Transacao> producer;
 
-	@Value("${app.topic}")
-	public String topic;
+	@Override
+	public String topic() {
+		return "transacao-avro";
+	}
 		
 	@Override
 	public ProducerRecord<String, Transacao> createProducerRecord(Transacao transacao) {
 
-		return new ProducerRecord<String, Transacao>(this.topic, transacao.getKey().toString(), transacao);
+		return new ProducerRecord<String, Transacao>(this.topic(), transacao);
 		
 	}
 
@@ -38,8 +38,6 @@ public class TransacaoService implements MessagingPort<Transacao> {
 				.setKey(transacaoDTO.getKey())
 				.setNome(transacaoDTO.getNome())
 				.setDocumento(transacaoDTO.getDocumento())
-				//.setIdade(null)
-				.setSituacao(false)
 				.build();
 
 		producer.send(this.createProducerRecord(transacao), (rm, ex) -> {

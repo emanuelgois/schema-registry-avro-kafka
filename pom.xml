@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>br.com.egois</groupId>
-    <artifactId>>schema-registry-avro-kafka</artifactId>
+    <artifactId>schema-registry-avro-kafka</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>schema-registry-avro-kafka</name>
     <description>Demo project for Spring Boot</description>
@@ -88,6 +88,29 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <!--for specific record -->
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <version>${avro.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                            <goal>protocol</goal>
+                            <goal>idl-protocol</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/main/resources/avro</sourceDirectory>
+                            <stringType>String</stringType>
+                            <createSetters>false</createSetters>
+                            <enableDecimalLogicalType>true</enableDecimalLogicalType>
+                            <fieldVisibility>private</fieldVisibility>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.avro</groupId>
