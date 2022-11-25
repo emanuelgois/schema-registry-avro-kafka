@@ -2,7 +2,7 @@ package br.com.egois.schemaregistry.controller;
 
 import br.com.egois.schemaregistry.dto.TransacaoDTO;
 
-import br.com.egois.schemaregistry.service.TransacaoService;
+import br.com.egois.schemaregistry.service.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class TransacaoController {
 
     @Autowired
-    private TransacaoService service;
+    private ProducerService service;
 
     @Value("${app.topic}")
     private String topic;

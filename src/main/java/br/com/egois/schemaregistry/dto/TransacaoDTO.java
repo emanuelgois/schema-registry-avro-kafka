@@ -21,5 +21,7 @@ public class TransacaoDTO{
 
     private Integer idade;
 
+    private String apelido;
+
 
 }

@@ -9,34 +9,37 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class TransacaoService implements MessagingPort<Transacao> {
+public class ProducerService implements MessagingPort<Transacao> {
+
 
 	@Autowired
 	@Qualifier("transacaoProducer")
 	private KafkaProducer<String, Transacao> producer;
 
-	@Override
-	public String topic() {
-		return "transacao-avro";
+	@Value("${app.topic}")
+	private String topic;
+
+	public ProducerService(KafkaProducer<String, Transacao> transacaoKafkaTemplate) {
+		this.producer = transacaoKafkaTemplate;
 	}
-		
-	@Override
+
 	public ProducerRecord<String, Transacao> createProducerRecord(Transacao transacao) {
 
-		return new ProducerRecord<String, Transacao>(this.topic(), transacao);
-		
+		return new ProducerRecord<String, Transacao>(this.topic, transacao);
+
 	}
 
-	@Override
 	public void send(TransacaoDTO transacaoDTO) {
 
 		Transacao transacao = Transacao.newBuilder()
-				.setKey(transacaoDTO.getKey())
+				.setCodigo(transacaoDTO.getKey())
 				.setNome(transacaoDTO.getNome())
+				//.setApelido(transacaoDTO.getApelido())
 				.setDocumento(transacaoDTO.getDocumento())
 				.build();
 
