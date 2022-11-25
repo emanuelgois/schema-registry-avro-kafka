@@ -41,7 +41,6 @@ public class ProducerService implements MessagingPort<Transacao> {
 		Transacao transacao = Transacao.newBuilder()
 				.setCodigo(transacaoDTO.getKey())
 				.setNome(transacaoDTO.getNome())
-				.setApelido("")
 				.setDocumento(transacaoDTO.getDocumento())
 				.build();
 
