@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Random;
+
 @Service
 @Slf4j
 public class ProducerService implements MessagingPort<Transacao> {
@@ -29,9 +32,8 @@ public class ProducerService implements MessagingPort<Transacao> {
 	}
 
 	public ProducerRecord<String, Transacao> createProducerRecord(Transacao transacao) {
-
-		return new ProducerRecord<String, Transacao>(this.topic, transacao);
-
+		String key = String.valueOf(((int)(Math.random()*(91)))+System.currentTimeMillis());
+		return new ProducerRecord<String, Transacao>(this.topic, key , transacao);
 	}
 
 	public void send(TransacaoDTO transacaoDTO) {
@@ -39,7 +41,7 @@ public class ProducerService implements MessagingPort<Transacao> {
 		Transacao transacao = Transacao.newBuilder()
 				.setCodigo(transacaoDTO.getKey())
 				.setNome(transacaoDTO.getNome())
-				//.setApelido(transacaoDTO.getApelido())
+				.setApelido("")
 				.setDocumento(transacaoDTO.getDocumento())
 				.build();
 
@@ -52,7 +54,7 @@ public class ProducerService implements MessagingPort<Transacao> {
 		});
 
 		producer.flush();
-		producer.close();
+		//producer.close();
 
 	}
 

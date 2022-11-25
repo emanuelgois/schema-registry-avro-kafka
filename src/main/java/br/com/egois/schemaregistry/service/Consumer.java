@@ -13,7 +13,10 @@ import org.springframework.stereotype.Component;
 public class Consumer  {
     @KafkaListener(topics = {"transacao-avro"}, groupId = "grupo-transacao-avro")
     public void consume(ConsumerRecord<String, Transacao> record, Acknowledgment acknowledgment) {
-        log.info("Mensagem Recebida! payload" + record.value());
+        log.info("----------------Consumer-------------------------");
+        log.info("Mensagem Recebida, key {} ", record.key());
+        log.info("payload {}", record.value());
+        log.info("-----------------------------------------");
         acknowledgment.acknowledge();
     }
 }

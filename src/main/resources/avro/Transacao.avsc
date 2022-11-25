@@ -7,7 +7,7 @@
    { "name": "codigo", "type": "string", "doc": "Código"},
    { "name": "nome", "type": "string", "doc": "Nome" },
    { "name": "apelido", "type": "string", "doc": "Nome social", "default": "null" },
-   { "name": "documento", "type": ["string","null"], "default": "null", "doc": "Documento" },
+   { "name": "documento", "type": "string" , "doc": "Documento", "default": "null" },
    { "name": "situacao", "type": "boolean", "default": false, "doc": "Situacao" }
  ]
 }
